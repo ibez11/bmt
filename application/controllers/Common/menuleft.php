@@ -5,9 +5,7 @@ class Menuleft extends CI_Controller {
     public function index() {
         $this->load->library('user');
 //        
-        $data['fullname'] = $this->user->getFullname();
-        $data['level'] = $this->user->getGroupName();
-        $data['welcome_back'] = 'Welcome back';
+        
         $data['test'] = '';
         $data['dashboard'] = 'Dashboard';
         $data['account'] = 'Account';

@@ -21,6 +21,9 @@ class Merchant extends CI_Controller {
         if (!$this->user->isLogged()) {
             $this->response->redirect('/login');
         }
+        if (!$this->user->hasPermission('access', 'merchant')) {
+            $this->response->redirect('/home');
+        }
 
         $data['delete'] = '';
 
@@ -68,6 +71,7 @@ class Merchant extends CI_Controller {
                 'user_id'  => $result_->user_id,
                 'fullname'  => $result_->fullname,
                 'group_name'  => $result_->group_name,
+                'status'  => $result_->status ? 'Aktif' : 'Tidak aktif',
                 'date_added'  => $result_->date_added,
                 'edit'  => 'merchant/edit/?user_id='.$result_->user_id
             ); 

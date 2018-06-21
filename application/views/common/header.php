@@ -55,7 +55,7 @@ $(function(){
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb avatar pull-left m-r"> <img src="<?=base_url();?>assets/image/a0.jpg"> <i class="on md b-black"></i> </span> <span class="hidden-nav-xs clear"> <span class="block m-t-xs"> <strong class="font-bold text-lt"><?php echo $fullname; ?></strong> <b class="caret"></b> </span> <span class="text-muted text-xs block"><?php //print "$pkname Member"; ?></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
                            <span class="arrow top hidden-nav-xs"></span>
-                           <li> <a href="#">Profile</a> </li>
+                           <li> <a href="/profile">Profile</a> </li>
                            <li> <a href="#">Notifications </a> </li>
                            <li> <a href="#">Help</a> </li>
                            <li class="divider"></li>

@@ -21,6 +21,9 @@ class Promo extends CI_Controller {
         if (!$this->user->isLogged()) {
             $this->response->redirect('/login');
         }
+        if (!$this->user->hasPermission('access', 'promo')) {
+            $this->response->redirect('/home');
+        }
         $data['title'] = 'Promo Lists';
         $data['heading_title'] = 'Promo Lists';
         $data['base'] = 'Promo Lists';
@@ -90,6 +93,9 @@ class Promo extends CI_Controller {
     public function add() {
         if (!$this->user->isLogged()) {
             $this->response->redirect('/login');
+        }
+        if ($this->user->hasPermission('access', 'promo')) {
+            $this->response->redirect('/');
         }
         $data['action'] = '/promo/add';
         $data['title'] = 'Promo Add';

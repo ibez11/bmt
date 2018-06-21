@@ -18,65 +18,47 @@
                      <div class="row">
                         <div class="page-header">
                            <div class="container-fluid">
-                              <div class="pull-right"><a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo 'Add'; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                                 <button type="submit" data-toggle="tooltip" name="submit" value="delete" title="<?php echo 'Delete'; ?>" class="btn btn-danger" form="form-merchant" onclick="confirm('<?php echo 'Are you sure?'; ?>') ? $('#form-merchant').submit() : false;"><i class="fa fa-trash-o"></i></button>
+                              <div class="pull-right">
                               </div>
                               <h1><?php echo $heading_title; ?></h1>
                            </div>
                         </div>
                         <div class="container-fluid">
                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                 <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo 'Promo Lists'; ?></h3>
-                              </div>
+                              
                               <div class="panel-body">
-                                 <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-promo">
+                                 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-profile" class="form-horizontal">
                                     <div class="table-responsive">
-                                       <table class="table table-bordered table-hover">
-                                          <thead>
-                                             <tr>
-                                                <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                                                <td class="text-left"><?php if ($sort == 'u.name') { ?>
-                                                   <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Name'; ?></a>
-                                                   <?php } else { ?>
-                                                   <a href="<?php echo $sort_name; ?>"><?php echo 'Name'; ?></a>
-                                                   <?php } ?>
-                                                </td>
-                                                <td class="text-left"><?php if ($sort == 'u.group_id') { ?>
-                                                   <a href="<?php echo $sort_group_id; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Group Name'; ?></a>
-                                                   <?php } else { ?>
-                                                   <a href="<?php echo $sort_group_id; ?>"><?php echo 'Group Name'; ?></a>
-                                                   <?php } ?>
-                                                </td>
-                                                
-                                                <td class="text-left"><?php echo 'Date Added'; ?></td>
-                                                <td class="text-center"><?php echo 'Action'; ?></td>
-                                             </tr>
-                                          </thead>
-                                          <tbody>
-                                             <?php if ($results_promo) { ?>
-                                             <?php foreach ($results_promo as $promo) { ?>
-                                             <tr>
-                                                <td class="text-center"><?php if (in_array($merchant['user_id'], $selected)) { ?>
-                                                   <input type="checkbox" name="selected[]" value="<?php echo $merchant['user_id']; ?>" checked="checked" />
-                                                   <?php } else { ?>
-                                                   <input type="checkbox" name="selected[]" value="<?php echo $merchant['user_id']; ?>" />
-                                                   <?php } ?>
-                                                </td>
-                                                <td class="text-left"><?php echo $merchant['fullname']; ?></td>
-                                                <td class="text-left"><?php echo $merchant['group_name']; ?></td>
-                                                
-                                                <td class="text-left"><?php echo $merchant['date_added']; ?></td>
-                                                <td class="text-center"><a href="<?php echo $merchant['edit']; ?>" data-toggle="tooltip" title="<?php echo 'Edit'; ?>" class="btn btn-primary">Edit</a></td>
-                                             </tr>
+                                       <div class="form-group required">
+                                           <label class="col-sm-2 control-label" for="input-name"><?php echo 'Name'; ?></label>
+                                           <div class="col-sm-10">
+                                             <input type="text" name="fullname" value="<?php echo $name; ?>" placeholder="<?php echo 'Masukkan Nama'; ?>" id="input-name" class="form-control" required="true"/>
+                                             <?php if (isset($error_name)) { ?>
+                                             <div class="text-danger"><?php echo $error_name; ?></div>
                                              <?php } ?>
-                                             <?php } else { ?>
-                                             <tr>
-                                                <td class="text-center" colspan="5"><?php echo $text_no_results; ?></td>
-                                             </tr>
+                                           </div>
+                                        </div>
+                                        <div class="form-group required">
+                                           <label class="col-sm-2 control-label" for="input-password"><?php echo 'Password'; ?></label>
+                                           <div class="col-sm-10">
+                                             <input type="password" name="password" value="<?php echo $password; ?>" placeholder="<?php echo 'Masukkan Password'; ?>" id="input-password" class="form-control" required="true"/>
+                                             <?php if (isset($error_password)) { ?>
+                                             <div class="text-danger"><?php echo $error_password; ?></div>
                                              <?php } ?>
-                                          </tbody>
-                                       </table>
+                                           </div>
+                                        </div>
+                                        <div class="form-group required">
+                                           <label class="col-sm-2 control-label" for="input-password"><?php echo 'Address'; ?></label>
+                                           <div class="col-sm-10">
+                                             <input type="text" name="address" value="<?php echo $address; ?>" placeholder="<?php echo 'Masukkan Address'; ?>" id="input-address" class="form-control" required="true"/>
+                                             <?php if (isset($error_address)) { ?>
+                                             <div class="text-danger"><?php echo $error_address; ?></div>
+                                             <?php } ?>
+                                           </div>
+                                        </div>
+                                        <div class="pull-right btn-back">
+                                            <button type="submit" data-toggle="tooltip" title="<?php echo 'Save'; ?>" name="submit" class="btn btn-primary"><?php echo 'Save'; ?><i class="fa "></i></button>
+                                        </div>
                                     </div>
                                  </form>
                               </div>

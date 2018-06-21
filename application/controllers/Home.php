@@ -6,7 +6,7 @@ class Home extends CI_Controller {
 		parent::__construct();		
 		$this->load->library('response');
                 $this->load->library('user');
-                
+                $this->load->model('account/account');
                 $this->load->library('header');
                 $this->load->library('menu_view');
                 $this->load->library('footer');
@@ -38,7 +38,17 @@ class Home extends CI_Controller {
                     mkdir($directory . '/' . $this->user->getId(), 0777);
                 }		
             }
+            $data['fullname'] = $this->user->getFullname();
+            $data['level'] = $this->user->getGroupName();
+            $data['welcome_back'] = 'Welcome back';
             
+            $array_chart = array();
+            for($i = 0;$i <= (int)$this->account->getTotalMerchant(); $i++){
+                $array_chart[] = $i;
+            }
+            // print_r($array_chart);
+            $data['total_merchant_chart'] = $array_chart;
+            $data['total_merchant'] = $this->account->getTotalMerchant();
             $data['url_login'] = false;
             $data['title'] = 'Home';
             $data['heading_title'] = 'Home';

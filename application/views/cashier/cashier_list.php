@@ -18,9 +18,8 @@
                      <div class="row">
                         <div class="page-header">
                            <div class="container-fluid">
-                              <div class="pull-right">
-                                 <a href="<?php echo 'merchant/add'; ?>" data-toggle="tooltip" title="<?php echo 'Add'; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-                                 <button type="submit" data-toggle="tooltip" name="submit" value="delete" title="<?php echo 'Delete'; ?>" class="btn btn-danger" form="form-merchant" onclick="confirm('<?php echo 'Are you sure?'; ?>') ? $('#form-merchant').submit() : false;">Disable</button>
+                              <div class="pull-right"><a href="<?php echo 'merchant/add'; ?>" data-toggle="tooltip" title="<?php echo 'Add'; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                                 
                               </div>
                               <h1><?php echo $heading_title; ?></h1>
                            </div>
@@ -28,25 +27,32 @@
                         <div class="container-fluid">
                            <div class="panel panel-default">
                               <div class="panel-heading">
-                                 <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo 'Merchant List'; ?></h3>
+                                 <h3 class="panel-title"><i class="fa fa-list"></i> <?php echo $h3; ?></h3>
                               </div>
                               <div class="panel-body">
-                                 <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-merchant">
+                                 <form action="<?php echo ''; ?>" method="post" enctype="multipart/form-data" id="form-merchant">
                                     <div class="table-responsive">
                                        <table class="table table-bordered table-hover">
                                           <thead>
                                              <tr>
                                                 <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                                                <td class="text-left"><?php if ($sort == 'u.firstname') { ?>
-                                                   <a href="<?php echo $sort_fullname; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Fullname'; ?></a>
+                                                <td class="text-left"><?php echo 'Kode'; ?></td>
+                                                <td class="text-left"><?php if ($sort == 'name') { ?>
+                                                   <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Nama'; ?></a>
                                                    <?php } else { ?>
-                                                   <a href="<?php echo $sort_fullname; ?>"><?php echo 'Fullname'; ?></a>
+                                                   <a href="<?php echo $sort_name; ?>"><?php echo 'Nama'; ?></a>
                                                    <?php } ?>
                                                 </td>
-                                                <td class="text-left"><?php if ($sort == 'u.group_id') { ?>
-                                                   <a href="<?php echo $sort_group_id; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Group Name'; ?></a>
+                                                <td class="text-left"><?php if ($sort == 'ref_parent_id') { ?>
+                                                   <a href="<?php echo $sort_parent_id; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Cabang'; ?></a>
                                                    <?php } else { ?>
-                                                   <a href="<?php echo $sort_group_id; ?>"><?php echo 'Group Name'; ?></a>
+                                                   <a href="<?php echo $sort_parent_id; ?>"><?php echo 'Cabang'; ?></a>
+                                                   <?php } ?>
+                                                </td>
+                                                <td class="text-left"><?php if ($sort == 'added_by') { ?>
+                                                   <a href="<?php echo $sort_added_by; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Dibuat'; ?></a>
+                                                   <?php } else { ?>
+                                                   <a href="<?php echo $sort_added_by; ?>"><?php echo 'Dibuat'; ?></a>
                                                    <?php } ?>
                                                 </td>
                                                 <td class="text-left"><?php echo 'Status'; ?></td>
@@ -55,21 +61,22 @@
                                              </tr>
                                           </thead>
                                           <tbody>
-                                             <?php if ($merchants) { ?>
-                                             <?php foreach ($merchants as $merchant) { ?>
+                                             <?php if ($cashiers) { ?>
+                                             <?php foreach ($cashiers as $cashier) { ?>
                                              <tr>
-                                                <td class="text-center"><?php if (in_array($merchant['user_id'], $selected)) { ?>
-                                                   <input type="checkbox" name="selected[]" value="<?php echo $merchant['user_id']; ?>" checked="checked" />
+                                                <td class="text-center"><?php if (in_array($cashier['cashier_id'], $selected)) { ?>
+                                                   <input type="checkbox" name="selected[]" value="<?php echo $cashier['cashier_id']; ?>" checked="checked" />
                                                    <?php } else { ?>
-                                                   <input type="checkbox" name="selected[]" value="<?php echo $merchant['user_id']; ?>" />
+                                                   <input type="checkbox" name="selected[]" value="<?php echo $cashier['cashier_id']; ?>" />
                                                    <?php } ?>
                                                 </td>
-                                                <td class="text-left"><?php echo $merchant['fullname']; ?></td>
-                                                <td class="text-left"><?php echo $merchant['group_name']; ?></td>
-                                                <td class="text-left"><?php echo $merchant['status']; ?></td>
-                                                
-                                                <td class="text-left"><?php echo $merchant['date_added']; ?></td>
-                                                <td class="text-center"><a href="<?php echo $merchant['edit']; ?>" data-toggle="tooltip" title="<?php echo 'Edit'; ?>" class="btn btn-primary">Edit</a></td>
+                                                <td class="text-left"><?php echo $cashier['code_cashier']; ?></td>
+                                                <td class="text-left"><?php echo $cashier['name']; ?></td>
+                                                <td class="text-left"><?php echo $cashier['parent_name']; ?></td>
+                                                <td class="text-left"><?php echo $cashier['added_by_name']; ?></td>
+                                                <td class="text-left"><?php echo $cashier['status']; ?></td>
+                                                <td class="text-left"><?php echo $cashier['date_added']; ?></td>
+                                                <td class="text-center"><a href="<?php echo $cashier['edit']; ?>" data-toggle="tooltip" title="<?php echo 'Edit'; ?>" class="btn btn-primary">Edit</a></td>
                                              </tr>
                                              <?php } ?>
                                              <?php } else { ?>

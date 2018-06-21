@@ -3,7 +3,7 @@
 class Merchant_Model extends CI_Model{
     public function getMerchant($data = array()) {
         $this->load->library('user');
-        $sql = "SELECT u.user_id as user_id,u." . DB_PREFIX_C . "username as username,u." . DB_PREFIX_C . "date_added as date_added,u." . DB_PREFIX_C . "fullname as fullname,ug." . DB_PREFIX_C . "name as group_name FROM `" . DB_PREFIX . "user` u LEFT JOIN `" . DB_PREFIX . "user_group` ug ON (u." . DB_PREFIX_REF . "group_id = ug.group_id) WHERE u." . DB_PREFIX_C . "parent_id = ".(int)$this->user->getId()." AND u." . DB_PREFIX_REF . "group_id = 2 ";
+        $sql = "SELECT u.user_id as user_id,u." . DB_PREFIX_C . "status as status, u." . DB_PREFIX_C . "username as username,u." . DB_PREFIX_C . "date_added as date_added,u." . DB_PREFIX_C . "fullname as fullname,ug." . DB_PREFIX_C . "name as group_name FROM `" . DB_PREFIX . "user` u LEFT JOIN `" . DB_PREFIX . "user_group` ug ON (u." . DB_PREFIX_REF . "group_id = ug.group_id) WHERE u." . DB_PREFIX_C . "parent_id = ".(int)$this->user->getId()." AND u." . DB_PREFIX_REF . "group_id = 2 ";
         if (!empty($data['merchant_name'])) {
             $sql .= " AND u." . DB_PREFIX_C . "fullname LIKE " . $this->db->escape($data['merchant_name']. "%").  "";
         }
