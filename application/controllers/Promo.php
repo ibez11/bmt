@@ -77,10 +77,11 @@ class Promo extends CI_Controller {
                 'config_mdr_money'  =>  $this->currency->format($result_->config_mdr_money,'IDR'),
                 'config_mdr_money_not_curr'  =>  $result_->config_mdr_money,
                 'config_mdr_percentage'  => $result_->config_mdr_percentage.'%',
+                'config_mdr_not_pecent'  => $result_->config_mdr_percentage,
                 'start_date'  => $result_->start_date,
                 'end_date'  => $result_->end_date,
                 'status'  => ($result_->status) ? 'Aktif' : 'Tidak Aktif',
-                'edit'  => 'merchant/edit/?user_id='.$result_->promo_id
+                'edit'  => 'promo/edit/?promo_id='.$result_->promo_id
             ); 
         } 
         
@@ -89,12 +90,37 @@ class Promo extends CI_Controller {
         $data['menu_left'] = $this->menu_view->getMenuView();
         $this->response->setOutput($this->load->view('promo/promo_list',$data));
     }
+
+    public function edit() {
+        if (!$this->user->isLogged()) {
+            $this->response->redirect('/login');
+        }
+        if($this->input->get('promo_id')) {
+            $promo_id = $this->input->get('promo_id');
+        } else {
+            $promo_id = 0;
+        }
+        
+        $data['action'] = '/promo/edit/?promo_id='.$promo_id;
+        $data['title'] = 'Edit Promo';
+        $data['heading_title'] = 'Edit Promo';
+        $data['base'] = 'Edit Promo';
+        
+        if (($this->input->server('REQUEST_METHOD') == 'POST') && $this->validateForm()) {
+            $promo = $this->promo_model->editPromo($promo_id,$this->input->post());
+            if($promo) {
+                $this->response->redirect('/promo');
+            }
+        }
+        $this->getForm($data);
+        
+    }
     
     public function add() {
         if (!$this->user->isLogged()) {
             $this->response->redirect('/login');
         }
-        if ($this->user->hasPermission('access', 'promo')) {
+        if (!$this->user->hasPermission('access', 'promo')) {
             $this->response->redirect('/');
         }
         $data['action'] = '/promo/add';
@@ -113,23 +139,34 @@ class Promo extends CI_Controller {
     }
     
     protected function getForm($data = array()) {
-        
-        if (($this->input->get('user_id')) && ($this->input->server('REQUEST_METHOD') != 'POST')) {
+        if (($this->input->get('promo_id')) && ($this->input->server('REQUEST_METHOD') != 'POST')) {
+                $promo_info = $this->promo_model->getPromoId($this->input->get('promo_id'));	
 
+                if($promo_info->promo_id !=  $this->input->get('promo_id')){
+                    $this->response->redirect('/promo');
+                }
         }
-        
+
         if ($this->input->post('merchant')) {
                 $data['merchant'] = $this->input->post('merchant');
-        } elseif (!empty($user_info)) {
-                $data['merchant'] = $user_info->c_merchant;
+        } elseif (!empty($promo_info)) {
+                $data['merchant'] = $promo_info->merchant_name;
         } else {
                 $data['merchant'] = '';
+        }
+
+        if ($this->input->post('merchant_id')) {
+                $data['merchant_id'] = $this->input->post('merchant_id');
+        } elseif (!empty($promo_info)) {
+                $data['merchant_id'] = $promo_info->promo_id;
+        } else {
+                $data['merchant_id'] = '';
         }
         
         if ($this->input->post('name')) {
                 $data['name'] = $this->input->post('name');
-        } elseif (!empty($user_info)) {
-                $data['name'] = $user_info->c_name;
+        } elseif (!empty($promo_info)) {
+                $data['name'] = $promo_info->c_name;
         } else {
                 $data['name'] = '';
         }
@@ -137,18 +174,34 @@ class Promo extends CI_Controller {
         if ($this->input->post('mdr')) {
                 $data['mdr_money'] = $this->input->post('mdr')[0];
                 $data['mdr_percent'] = $this->input->post('mdr')[1];
-        } elseif (!empty($user_info)) {
-                $data['mdr_money'] = $user_info->c_config_mdr_money;
-                $data['mdr_percent'] = $user_info->c_config_mdr_percentage;
+        } elseif (!empty($promo_info)) {
+                $data['mdr_money'] = (float)$promo_info->c_config_mdr_money;
+                $data['mdr_percent'] = (int)$promo_info->c_config_mdr_percentage;
         } else {
                 $data['mdr_money'] = '';
                 $data['mdr_percent'] = '';
         }
+
+        if ($this->input->post('start_date')) {
+                $data['start_date'] = $this->input->post('status');
+        } elseif (!empty($promo_info)) {
+                $data['start_date'] = date(date_format_short, strtotime($promo_info->c_start_date));
+        } else {
+                $data['start_date'] = '';
+        }
+
+        if ($this->input->post('end_date')) {
+                $data['end_date'] = $this->input->post('status');
+        } elseif (!empty($promo_info)) {
+                $data['end_date'] = date(date_format_short, strtotime($promo_info->c_end_date));
+        } else {
+                $data['end_date'] = '';
+        }
         
         if ($this->input->post('status')) {
                 $data['status'] = $this->input->post('status');
-        } elseif (!empty($user_info)) {
-                $data['status'] = $user_info->c_status;
+        } elseif (!empty($promo_info)) {
+                $data['status'] = $promo_info->c_status;
         } else {
                 $data['status'] = '';
         }
@@ -172,6 +225,12 @@ class Promo extends CI_Controller {
         } else {
                 $data['error_mdr'] = '';
         }
+
+        if (isset($this->error['warning'])) {
+			$data['error_warning'] = $this->error['warning'];
+		} else {
+			$data['error_warning'] = '';
+		}
         
         $data['back'] = '/promo';
         
@@ -212,6 +271,15 @@ class Promo extends CI_Controller {
     }
     
     protected function validateForm() {
+        if(empty($this->input->post('merchant_id')) ){
+            $this->error['warning'] = 'Gagal!! Nama Merchant tidak terdaftar..';
+        } else {
+            $total = $this->promo_model->checkUser($this->input->post('merchant_id'));
+            if((int)$total == 0){
+                $this->error['warning'] = 'Gagal!! Nama Merchant tidak terdaftar..';
+            }
+        }
+        
         return !$this->error;
     }
 }

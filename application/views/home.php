@@ -39,8 +39,8 @@ echo $header; ?>
                                 <div class="card text-white bg-info">
                                   <div class="card-body pb-0">
                                     
-                                    <div class="text-value" style="font-size: 3rem;">8</div>
-                                     <div style="font-size: 2rem;">JUMLAH Cashier</div>
+                                    <div class="text-value" style="font-size: 3rem;"><?php print_r($total_cashier); ?></div>
+                                     <div style="font-size: 2rem;">JUMLAH Kasir</div>
                                   </div>
                                   <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                                     <canvas id="card-chart2" class="chart" height="70"></canvas>

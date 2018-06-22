@@ -446,7 +446,7 @@ class Merchant extends CI_Controller {
     
     protected function validateForm() {
         if ($this->merchant_model->getTotalMerchantByUsername($this->input->post('username'))) {
-			$this->error['username'] = 'Username sudah dipakai';
+			$this->error['username'] = 'Username sudah ada';
 		}
         return !$this->error;
     }

@@ -1,6 +1,6 @@
 <?php echo $header; ?>
 <head>
-<meta name="description" content="Daftar & Jualan di Niaga Monster">
+<meta name="description" content="Daftar BMT">
 </head>
 <br />
 <div class="container">
@@ -64,40 +64,14 @@
               <div class="text-danger"><?php echo $error_telephone; ?></div>
               <?php } ?>
           </div>
-
-          <div class="form-group required product-chooser">
-            <label class="lgender">Gender</label>
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-6 col-md-3">
-                        <div class="product-chooser-item selected">
-                            <img class="img-responsive margin-aligner" src="https://www.monsterstatic.com/cache/default_image_profile-100x100.png">
-                            <label class="radio-inline">
-                              <input type="radio" name="gender" value="1" <?php echo $gender_male; ?> />
-                            </label>
-                        </div>
-                        <div class="name-gender">
-                            <div class="text-center"><?php echo $text_male; ?></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-6 col-md-3">
-                        <div class="product-chooser-item">
-                            <img class="img-responsive margin-aligner" src="https://www.monsterstatic.com/cache/default_image_profile-100x100.png">
-                            <label class="radio-inline">
-                                <input type="radio" name="gender" value="2" <?php echo $gender_female; ?>/>
-                                <?php echo $text_female; ?>
-                            </label>
-                        </div>
-                        <div class="name-gender">
-                            <div class="text-center"><?php echo $text_female; ?></div>
-                        </div>
-                    </div>
-                  <?php if ($error_gender) { ?>
-                  <div class="text-danger"><?php echo $error_gender; ?></div>
-                  <?php } ?>
-              </div>
-            </div>
+          <div class="form-group required wrap-inputacc">
+              <input type="text" name="address" value="<?php echo $address; ?>" id="input-address" class="form-control" required/>
+                <span class="focus-inputacc" data-placeholder="<?php echo $entry_address; ?>"></span>
+              <?php if ($error_address) { ?>
+              <div class="text-danger"><?php echo $error_address; ?></div>
+              <?php } ?>
           </div>
+          
           <div class="form-group required wrap-inputacc">
                 <span class="btn-show-acc" onclick="DEcrypte()"><i class="fa fa-eye"></i></span>
                     <input type="password" name="password" value="<?php echo $password; ?>" id="input-password" class="form-control" required/>
@@ -111,7 +85,7 @@
         
         <legend></legend>
         <div class="buttons">
-            <input type="submit" value="<?php echo $button_continue_register; ?>" class="btn btn-primary btn-lg submit-niagamonster-regis" />
+            <input type="submit" value="<?php echo $button_continue_register; ?>" class="btn btn-primary btn-lg " />
         </div>
 
       </form>

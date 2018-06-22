@@ -18,7 +18,7 @@
                      <div class="row">
                         <div class="page-header">
                            <div class="container-fluid">
-                              <div class="pull-right"><a href="<?php echo 'merchant/add'; ?>" data-toggle="tooltip" title="<?php echo 'Add'; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+                              <div class="pull-right"><a href="<?php echo 'cashier/add'; ?>" data-toggle="tooltip" title="<?php echo 'Add'; ?>" class="btn btn-primary"><i class="fa fa-plus"></i></a>
                                  
                               </div>
                               <h1><?php echo $heading_title; ?></h1>
@@ -32,11 +32,11 @@
                               <div class="panel-body">
                                  <form action="<?php echo ''; ?>" method="post" enctype="multipart/form-data" id="form-merchant">
                                     <div class="table-responsive">
-                                       <table class="table table-bordered table-hover">
+                                       <table class="table table-bordered table-hover"> 
                                           <thead>
                                              <tr>
                                                 <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
-                                                <td class="text-left"><?php echo 'Kode'; ?></td>
+                                                <td class="text-left"><?php echo 'Kode Kasir'; ?></td> 
                                                 <td class="text-left"><?php if ($sort == 'name') { ?>
                                                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Nama'; ?></a>
                                                    <?php } else { ?>
@@ -46,7 +46,7 @@
                                                 <td class="text-left"><?php if ($sort == 'ref_parent_id') { ?>
                                                    <a href="<?php echo $sort_parent_id; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Cabang'; ?></a>
                                                    <?php } else { ?>
-                                                   <a href="<?php echo $sort_parent_id; ?>"><?php echo 'Cabang'; ?></a>
+                                                   <a href="<?php echo $sort_parent_id; ?>"><?php echo 'Merchant'; ?></a>
                                                    <?php } ?>
                                                 </td>
                                                 <td class="text-left"><?php if ($sort == 'added_by') { ?>

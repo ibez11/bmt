@@ -38,7 +38,7 @@
                                              <tr>
                                                 <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
                                                 <td class="text-left">
-                                                   <?php echo 'Merchant Nama'; ?>
+                                                   <?php echo 'Nama Merchant'; ?>
                                                 </td>
                                                 <td class="text-left"><?php if ($sort == 'u.name') { ?>
                                                    <a href="<?php echo $sort_name; ?>" class="<?php echo strtolower($order); ?>"><?php echo 'Name'; ?></a>
@@ -68,7 +68,7 @@
                                                 </td>
                                                 <td class="text-left"><?php echo $promo['merchant_fullname']; ?></td>
                                                 <td class="text-left"><?php echo $promo['name']; ?></td>
-                                                <td class="text-left"><?php echo ($promo['config_mdr_money_not_curr'] > 0) ? $promo['config_mdr_money'] : $promo['config_mdr_percentage']; ?></td>
+                                                <td class="text-left"><?php echo ($promo['config_mdr_not_pecent'] > 0) ? $promo['config_mdr_percentage'] : $promo['config_mdr_money']; ?></td>
                                                 
                                                 <td class="text-left"><?php echo $promo['start_date']; ?></td>
                                                 <td class="text-left"><?php echo $promo['end_date']; ?></td>

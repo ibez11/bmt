@@ -25,7 +25,7 @@ class Menu {
         
         if ($this->CI->user->hasPermission('access', 'cashier')) {
             $catalog[] = array(
-                'name'     => 'Cashier',
+                'name'     => 'Kasir',
                 'href'     => '/cashier',
                 'children' => array()		
             );
@@ -107,7 +107,7 @@ class Menu {
         
         if ($this->CI->user->hasPermission('access', 'cashier')) {
             $catalog[] = array(
-                'name'     => 'Cashier',
+                'name'     => 'Kasir',
                 'href'     => '/cashier',
                 'children' => array()		
             );

@@ -5,6 +5,7 @@ class User {
         private $fullname;
         private $email;
         private $group_name;
+        private $group_id;
 	private $CI;
 	private $permission = array();
 	
@@ -20,7 +21,7 @@ class User {
 			if ($user_query->num_rows()) {
                             $row = $user_query->row();
                             if (isset($row)) {
-                                $user_group_query = $this->CI->db->query("SELECT " . DB_PREFIX_C . "permission, " . DB_PREFIX_C . "name FROM " . DB_PREFIX . "user_group WHERE group_id = '" . (int)$row->ref_group_id . "'");
+                                $user_group_query = $this->CI->db->query("SELECT group_id," . DB_PREFIX_C . "permission, " . DB_PREFIX_C . "name FROM " . DB_PREFIX . "user_group WHERE group_id = '" . (int)$row->ref_group_id . "'");
                                 $user_group_query_row = $user_group_query->row();
 
                                 $this->user_id = $row->user_id;
@@ -28,6 +29,7 @@ class User {
                                 $this->fullname = $row->c_fullname;
                                 $this->email = $row->c_email;
                                 $this->group_name = $user_group_query_row->c_name;
+                                $this->group_id = $user_group_query_row->group_id;
                                 $permissions = json_decode($user_group_query_row->c_permission, true);
 
                                 if (is_array($permissions)) {
@@ -59,7 +61,7 @@ class User {
 			$row = $user_query->row();
 			if (isset($row)) {
                             $this->CI->session->set_userdata('user_id',$row->user_id);
-                            $user_group_query = $this->CI->db->query("SELECT " . DB_PREFIX_C . "permission, " . DB_PREFIX_C . "name FROM " . DB_PREFIX . "user_group WHERE group_id = '" . (int)$row->ref_group_id . "'");
+                            $user_group_query = $this->CI->db->query("SELECT group_id," . DB_PREFIX_C . "permission, " . DB_PREFIX_C . "name FROM " . DB_PREFIX . "user_group WHERE group_id = '" . (int)$row->ref_group_id . "'");
                             $user_group_query_row = $user_group_query->row();
 
                             $this->user_id = $row->user_id;
@@ -67,6 +69,7 @@ class User {
                             $this->fullname = $row->c_fullname;
                             $this->email = $row->c_email;
                             $this->group_name = $user_group_query_row->c_name;
+                            $this->group_id = $user_group_query_row->group_id;
                             $permissions = json_decode($user_group_query_row->c_permission, true);
 
                             if (is_array($permissions)) {
@@ -104,6 +107,10 @@ class User {
         
         public function getGroupName() {
             return $this->group_name;
+	}
+	
+	public function getGroupId() {
+            return $this->group_id;
 	}
 	
 	public function hasPermission($key, $value) {

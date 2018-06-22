@@ -31,8 +31,9 @@ class Register extends CI_Controller {
         $data['entry_email'] = 'Email';
         $data['entry_password'] = 'Password';
         $data['entry_username'] = 'Username';
-        $data['entry_fullname'] = 'Full Name';
+        $data['entry_fullname'] = 'Nama Lengkap';
         $data['entry_telephone'] = 'Nomor telephone';
+        $data['entry_address'] = 'Alamat';
         $data['text_male'] = 'Male';
         $data['text_female'] = 'Female';
         $data['gender_male'] = 'checked';
@@ -72,6 +73,12 @@ class Register extends CI_Controller {
         } else {
                 $data['telephone'] = '';
         }
+
+        if ($this->input->post('address')) {
+                $data['address'] = $this->input->post('address');
+        } else {
+                $data['address'] = '';
+        }
         
         if ($this->input->post('password')) {
                 $data['password'] = $this->input->post('password');
@@ -91,10 +98,10 @@ class Register extends CI_Controller {
                 $data['error_telephone'] = '';
         }
 
-        if (isset($this->error['gender'])) {
-                $data['error_gender'] = $this->error['gender'];
+        if (isset($this->error['address'])) {
+                $data['error_address'] = $this->error['address'];
         } else {
-                $data['error_gender'] = '';
+                $data['error_address'] = '';
         }
         
         if (isset($this->error['username'])) {
@@ -143,6 +150,10 @@ class Register extends CI_Controller {
         
         if ((strlen($this->input->post('email')) > 96) || !filter_var($this->input->post('email'), FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = 'Email salah';
+        }
+
+        if (empty($this->input->post('address'))) {
+            $this->error['email'] = 'Address salah';
         }
         
         if ($this->account->getTotalAccountByUsername($this->input->post('username'))) {

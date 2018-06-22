@@ -49,6 +49,7 @@ class Home extends CI_Controller {
             // print_r($array_chart);
             $data['total_merchant_chart'] = $array_chart;
             $data['total_merchant'] = $this->account->getTotalMerchant();
+            $data['total_cashier'] = $this->account->getTotalCashier();
             $data['url_login'] = false;
             $data['title'] = 'Home';
             $data['heading_title'] = 'Home';

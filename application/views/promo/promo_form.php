@@ -36,7 +36,7 @@
                                             <label class="col-sm-2 control-label" for="input-merchant"><?php echo 'Nama Merchant'; ?></label>
                                             <div class="col-sm-10">
                                                 <input type="text" name="merchant" value="<?php echo $merchant; ?>" placeholder="<?php echo 'Masukkan Nama Merchant'; ?>" id="input-merchant" class="form-control" required="true" />
-                                                <input type="text" name="merchant_id" value="<?php echo $merchant; ?>" id="input-merchant-id" class="form-control" style="display:none" />
+                                                <input type="text" name="merchant_id" value="<?php echo $merchant_id; ?>" id="input-merchant-id" class="form-control" style="display:none" />
                                               <?php if (isset($error_merchant)) { ?>
                                               <div class="text-danger"><?php echo $error_merchant; ?></div>
                                               <?php } ?>
@@ -68,13 +68,13 @@
                                         <div class="form-group required">
                                             <label class="col-sm-2 control-label" for="input-mdr"><?php echo 'Mulai'; ?></label>
                                             <div class="col-sm-4">
-                                                <input type="date" placeholder="Mulai" name="start_date" id="date_start_date" data-date-format="YYYY-MM-DD" id="input-start-date" class="form-control date" />
+                                                <input type="date" placeholder="Mulai" value="<?php echo $start_date; ?>" name="start_date" data-date-format="YYYY-MM-DD" id="input-start-date" class="form-control date" />
                                             </div>
                                         </div>
                                         <div class="form-group required">
                                             <label class="col-sm-2 control-label" for="input-mdr"><?php echo 'Akhir'; ?></label>
                                             <div class="col-sm-4">
-                                                <input type="date" placeholder="Akhir" name="end_date" id="date_end_date" data-date-format="YYYY-MM-DD" id="input-end-date" class="form-control date" />
+                                                <input type="date" placeholder="Akhir" name="end_date" value="<?php echo $end_date; ?>" data-date-format="YYYY-MM-DD" id="input-end-date" class="form-control date" />
                                             </div>
                                         </div>
                                         <div class="form-group required">

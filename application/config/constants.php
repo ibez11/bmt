@@ -89,6 +89,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 define('DB_PREFIX','t_');
 define('DB_PREFIX_C','c_');
 define('DB_PREFIX_REF','ref_');
+define('date_format_short','Y-m-d');
 
 //Path Image
 define('DIR_IMAGE',$_SERVER['DOCUMENT_ROOT'].'/assets/image/');
